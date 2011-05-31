@@ -1,7 +1,5 @@
 """
 """
-# globals
-
 from __future__ import with_statement
 from fabric.api import env, run,require, sudo, run, put, local, settings, cd
 from fabric.contrib.files import upload_template, exists
@@ -16,7 +14,7 @@ def conf():
     env.user = 'ftao'
     env.group = 'ftao'
     env.key_filename = '/home/ftao/.ssh/deploy_key'
-    env.virtualhost_path = "deploy/modwsgi/"
+    env.deploy_path = "deploy/modwsgi/"
 
 # tasks
 
@@ -116,13 +114,13 @@ def upload_tar_from_git():
 def install_site():
     "Add the virtualhost file to apache"
     require('release', provided_by=[deploy])
-    sudo('cd %(path)s/releases/%(release)s; cp %(virtualhost_path)s%(project_name)s /etc/apache2/sites-available/' %env)
+    sudo('cd %(path)s/releases/%(release)s; cp %(deploy_path)s%(project_name)s /etc/apache2/sites-available/' %env)
     sudo('cd /etc/apache2/sites-available/; a2ensite %(project_name)s' %env) 
 
 def install_requirements():
     "Install the required packages from the requirements file using pip"
     require('release', provided_by=[deploy, retry])
-    run('cd %(path)s; pip install -E . -r ./releases/%(release)s/requirements.txt' %env)
+    run('cd %(path)s; pip install -E . -r ./releases/%(release)s/%(deploy_path)s/%requirements.txt' %env)
 
 def symlink_current_release():
     "Symlink our current release"
