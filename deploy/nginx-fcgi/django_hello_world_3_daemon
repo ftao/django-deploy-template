@@ -15,7 +15,7 @@ NAME=DJANGO_HELLO_WORLD_3
 case "$1" in
   start)
     echo -n "Starting Daemon django_hello_world_3: "
-    /usr/bin/daemon --user=www-data.www-data --name=$NAME  --start $DAEMOn
+    /usr/bin/daemon --user=www-data.www-data --name=$NAME $DAEMON
     echo " done."
     ;;
   stop)
