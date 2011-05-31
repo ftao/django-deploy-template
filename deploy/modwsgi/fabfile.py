@@ -120,7 +120,7 @@ def install_site():
 def install_requirements():
     "Install the required packages from the requirements file using pip"
     require('release', provided_by=[deploy, retry])
-    run('cd %(path)s; pip install -E . -r ./releases/%(release)s/%(deploy_path)s/%requirements.txt' %env)
+    run('cd %(path)s; pip install -E . -r ./releases/%(release)s/%(deploy_path)s/requirements.txt' %env)
 
 def symlink_current_release():
     "Symlink our current release"
