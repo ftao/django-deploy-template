@@ -2,9 +2,12 @@ import sys
 import site
 import os
 
+
 #change this to your project name 
 PROJECT_NAME = 'django_hello_world'
 VE_PREFIX = '/opt/app/'
+
+os.environ['PYTHON_EGG_CACHE'] = os.path.join(VE_PREFIX, PROJECT_NAME, 'share/.python-eggs')
 
 vepath = os.path.join(VE_PREFIX, PROJECT_NAME, 'lib/python2.5/site-packages')
 release_path = os.path.join(VE_PREFIX, PROJECT_NAME, 'releases/current')
