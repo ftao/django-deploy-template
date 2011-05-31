@@ -1,8 +1,8 @@
 <VirtualHost *:80>
     ServerName  hello.example.com
 
-    Alias /static /opt/app/django_hello_world/releases/current/
-    <Directory /opt/django_hello_world/release/static>
+    Alias /static /opt/app/django_hello_world/releases/current/django_hello_world/static
+    <Directory /opt/django_hello_world/release/current/django_hello_world/static>
         Order deny,allow
         Allow from all
     </Directory>
