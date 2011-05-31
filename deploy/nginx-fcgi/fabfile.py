@@ -116,7 +116,7 @@ def install_site():
     sudo('cd %(path)s/releases/%(release)s; cp %(deploy_path)s%(project_name)s /etc/nginx/sites-available/' %env)
     sudo('cd /etc/nginx/sites-enabled/; ln -sf ../site-available/%(project_name)s' %env) 
 
-def install_dameon():
+def install_daemon():
     require('release', provided_by=[deploy])
     sudo('cd %(path)s/releases/%(release)s; cp %(deploy_path)s%(project_name)s_daemon /etc/init.d/' %env)
     sudo('update-rc.d %(project_name)s_daemon defaults' %env)
