@@ -1,13 +1,11 @@
 <VirtualHost *:80>
     ServerName hello2.example.com
-    DocumentRoot /var/www/django_hello_world_2
+    DocumentRoot /opt/app/django_hello_world_2/releases/current/deploy/apache-fcgi/
 
     Alias /media /opt/app/django_hello_world_2/lib/python2.5/site-packages/django/contrib/admin/media
     Alias /static /opt/app/django_hello_world_2/releases/current/django_hello_world/static
 
-    FcgidPassHeader Authorization
-
-    <Directory /var/www/django_hello_world_2/>
+    <Directory /opt/app/django_hello_world_2/releases/current/deploy/apache-fcgi/>
         Options FollowSymLinks MultiViews ExecCGI
         AllowOverride All
         Order allow,deny
