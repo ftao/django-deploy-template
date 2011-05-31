@@ -1,1 +1,1 @@
-deploy/nginx_fcgi/fabfile.py
+deploy/nginx-fcgi/fabfile.py

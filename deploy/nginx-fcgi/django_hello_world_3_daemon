@@ -1,0 +1,37 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          django_hello_world_3
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+# Copyright Fei Tao , 2010
+# This script is distibuted under the GPL
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+DAEMON="/opt/app/django-hello-world-3/bin/python /opt/app/django-hello-world-3/releases/current/django-hello-world/manage.py runfcgi daemonize=false socket=/opt/app/django-hello-world-3/run/django-hello-world-3.sock pidfile=/opt/app/django-hello-world-3/run/django-hello-world-3.pid"
+LOG_FILE="/opt/app/django_hello_world_3/log/error.log"
+NAME=DJANGO_HELLO_WORLD_3
+
+case "$1" in
+  start)
+    echo -n "Starting Daemon django_hello_world_3: "
+    /usr/bin/daemon --name=$NAME -errlog=$LOG_FILE $DAEMON
+    echo " done."
+    ;;
+  stop)
+    echo -n "Stopping: "
+    /usr/bin/daemon --name=$NAME --stop $DAEMON
+    echo " done."
+    ;;
+  force-reload|restart)
+    echo "Restarting django_hello_world_3: "
+    /usr/bin/daemon --name=$NAME --restart $DAEMON
+    echo " done."
+    ;;
+  *)
+    echo "Usage: /etc/init.d/django_hello_world_3_daemon {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
