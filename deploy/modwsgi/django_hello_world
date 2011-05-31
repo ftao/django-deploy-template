@@ -1,0 +1,21 @@
+<VirtualHost *:80>
+    ServerName  hello.example.com
+
+    Alias /static /opt/app/django_hello_world/releases/current/
+    <Directory /opt/django_hello_world/release/static>
+        Order deny,allow
+        Allow from all
+    </Directory>
+
+    WSGIScriptAlias / /opt/app/django_hello_world/deploy/modwsgi/django_hello_world.wsgi
+
+    ErrorLog /var/log/apache2/django-hello-world-error.log
+
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel warn
+
+    CustomLog /var/log/apache2/django-hello-world-access.log combined
+
+</VirtualHost>
+
