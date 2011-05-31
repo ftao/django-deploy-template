@@ -1,0 +1,27 @@
+<VirtualHost *:80>
+    ServerName hello2.example.com
+    DocumentRoot /var/www/django_hello_world_2
+
+    Alias /media /opt/app/django_hello_world_2/lib/python2.5/site-packages/django/contrib/admin/media
+    Alias /static /opt/app/django_hello_world_2/releases/current/django_hello_world/static
+
+    FcgidPassHeader Authorization
+
+    <Directory /var/www/django_hello_world_2/>
+        Options FollowSymLinks MultiViews ExecCGI
+        AllowOverride All
+        Order allow,deny
+        allow from all
+
+        RewriteEngine On
+
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteRule ^(.*)$ django_hello_world_2.fcgi/$1 [QSA,L]
+    </Directory>
+        
+
+    ErrorLog /var/log/apache2/django-hello-world-2-error.log
+    LogLevel debug
+
+    CustomLog /var/log/apache2/django-hellp-world-2-access.log combined
+</VirtualHost>

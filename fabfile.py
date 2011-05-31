@@ -1,1 +1,1 @@
-deploy/modwsgi/fabfile.py
+deploy/apache-fcgi/fabfile.py
