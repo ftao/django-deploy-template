@@ -29,9 +29,6 @@ def setup():
     sudo('aptitude install -y python-setuptools')
     sudo('aptitude install -y nginx')
     sudo('aptitude install -y daemon')
-    #sudo('aptitude install -y libapache2-mod-fcgid')
-    #sudo('a2enmod rewrite')
-    #sudo('a2enmod fcgid')
 
     sudo('easy_install pip')
     sudo('pip install virtualenv')
@@ -39,6 +36,7 @@ def setup():
     sudo('mkdir -p %(path)s; cd %(path)s; virtualenv .;chown -R %(group)s:%(user)s .;' %env)
     with settings(warn_only=True):
         run('cd %(path)s; mkdir releases;mkdir packages;mkdir run;mkdir log; mkdir share;chmod 777 -R share;' %env)
+        run('cd %(path)s; chown -R www-data:www-data run; chown -R www-data:www-data log;' %env)
 
 def deploy():
     """
@@ -61,8 +59,8 @@ def deploy():
     install_daemon()
     symlink_current_release()
     #migrate()
-    restart_webserver()
     restart_daemon()
+    restart_webserver()
 
 def deploy_version(version):
     "Specify a specific version to be made live"
@@ -145,5 +143,6 @@ def restart_webserver():
     sudo('/etc/init.d/nginx restart')
 
 def restart_daemon():
+    require('project_name')
     sudo('/etc/init.d/%(project_name)s_daemon stop' %env)
     sudo('/etc/init.d/%(project_name)s_daemon start' %env)

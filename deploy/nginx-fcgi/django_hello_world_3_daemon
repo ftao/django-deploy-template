@@ -8,15 +8,14 @@
 # This script is distibuted under the GPL
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-DAEMON="/opt/app/django_hello_world_3/bin/python /opt/app/django_hello_world_3/releases/current/django_hello_world/manage.py runfcgi daemonize=false socket=/opt/app/django_hello_world_3/run/django_hello_world_3.sock pidfile=/opt/app/django_hello_world_3/run/django_hello_world_3.pid"
+DAEMON="/opt/app/django_hello_world_3/releases/current/deploy/nginx-fcgi/runfcgi.sh"
 LOG_FILE="/opt/app/django_hello_world_3/log/error.log"
-EGG_CACHE_DIR="/opt/app/django_hello_world_3/share/.python-eggs"
 NAME=DJANGO_HELLO_WORLD_3
 
 case "$1" in
   start)
     echo -n "Starting Daemon django_hello_world_3: "
-    /usr/bin/daemon --user=www-data.www-data --env="PYTHON_EGG_CACHE=$EGG_CACHE_DIR" --name=$NAME -errlog=$LOG_FILE $DAEMON
+    /usr/bin/daemon --user=www-data.www-data --name=$NAME  --start $DAEMOn
     echo " done."
     ;;
   stop)
