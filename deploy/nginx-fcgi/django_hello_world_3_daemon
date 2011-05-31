@@ -8,24 +8,25 @@
 # This script is distibuted under the GPL
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-DAEMON="/opt/app/django_hello_world_3/bin/python /opt/app/django_hello_world_3/releases/current/django-hello-world/manage.py runfcgi daemonize=false socket=/opt/app/django_hello_world_3/run/django_hello_world_3.sock pidfile=/opt/app/django_hello_world_3/run/django_hello_world_3.pid"
+DAEMON="/opt/app/django_hello_world_3/bin/python /opt/app/django_hello_world_3/releases/current/django_hello_world/manage.py runfcgi daemonize=false socket=/opt/app/django_hello_world_3/run/django_hello_world_3.sock pidfile=/opt/app/django_hello_world_3/run/django_hello_world_3.pid"
 LOG_FILE="/opt/app/django_hello_world_3/log/error.log"
+EGG_CACHE_DIR="/opt/app/django_hello_world_3/share/.python-eggs"
 NAME=DJANGO_HELLO_WORLD_3
 
 case "$1" in
   start)
     echo -n "Starting Daemon django_hello_world_3: "
-    /usr/bin/daemon --name=$NAME -errlog=$LOG_FILE $DAEMON
+    /usr/bin/daemon --user=www-data.www-data --env="PYTHON_EGG_CACHE=$EGG_CACHE_DIR" --name=$NAME -errlog=$LOG_FILE $DAEMON
     echo " done."
     ;;
   stop)
     echo -n "Stopping: "
-    /usr/bin/daemon --name=$NAME --stop $DAEMON
+    /usr/bin/daemon --user=www-data.www-data --name=$NAME --stop $DAEMON
     echo " done."
     ;;
   force-reload|restart)
     echo "Restarting django_hello_world_3: "
-    /usr/bin/daemon --name=$NAME --restart $DAEMON
+    /usr/bin/daemon --user=www-data.www-data --name=$NAME --restart $DAEMON
     echo " done."
     ;;
   *)

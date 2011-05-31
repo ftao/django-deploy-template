@@ -114,7 +114,7 @@ def install_site():
     "Add the virtualhost file to apache"
     require('release', provided_by=[deploy])
     sudo('cd %(path)s/releases/%(release)s; cp %(deploy_path)s%(project_name)s /etc/nginx/sites-available/' %env)
-    sudo('cd /etc/nginx/sites-enabled/; ln -sf ../site-available/%(project_name)s' %env) 
+    sudo('cd /etc/nginx/sites-enabled/; ln -sf ../sites-available/%(project_name)s' %env) 
 
 def install_daemon():
     require('release', provided_by=[deploy])
